@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - GymFit Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <i class="fas fa-dumbbell text-3xl text-blue-600 mr-3"></i>
+                    <h1 class="text-2xl font-bold text-gray-800">GymFit Hub</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <button onclick="toggleNotifications()" class="relative p-2 text-gray-600 hover:text-blue-600">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span id="notificationBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">3</span>
+                        </button>
+                    </div>
+                    <div class="relative">
+                        <button onclick="toggleProfileMenu()" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600">
+                            <img id="userAvatar" src="https://via.placeholder.com/32" alt="Profile" class="w-8 h-8 rounded-full">
+                            <span id="userName">User Name</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="profileMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg hidden z-50">
+                            <a href="profile.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
+                            <a href="settings.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Settings</a>
+                            <hr>
+                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-lg min-h-screen">
+            <nav class="mt-8">
+                <div class="px-4 space-y-2">
+                    <a href="dashboard.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-tachometer-alt mr-3"></i>Dashboard
+                    </a>
+                    <a href="workouts.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-dumbbell mr-3"></i>My Workouts
+                    </a>
+                    <a href="progress.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-chart-line mr-3"></i>Progress
+                    </a>
+                    <a href="community.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-users mr-3"></i>Community
+                    </a>
+                    <a href="challenges.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-trophy mr-3"></i>Challenges
+                    </a>
+                    <a href="profile.html" class="flex items-center px-4 py-2 text-blue-600 bg-blue-50 rounded-lg">
+                        <i class="fas fa-user mr-3"></i>Profile
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-8">
+            <!-- Profile Header -->
+            <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+                <div class="flex items-center space-x-6">
+                    <div class="relative">
+                        <img id="profileAvatar" src="https://via.placeholder.com/120" alt="Profile" class="w-32 h-32 rounded-full">
+                        <button onclick="changeAvatar()" class="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <div class="flex-1">
+                        <h1 class="text-3xl font-bold text-gray-800 mb-2" id="profileName">John Doe</h1>
+                        <p class="text-gray-600 mb-4" id="profileEmail">john.doe@example.com</p>
+                        <div class="flex items-center space-x-6">
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-blue-600" id="memberSince">2024</p>
+                                <p class="text-sm text-gray-600">Member Since</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-green-600" id="totalWorkouts">156</p>
+                                <p class="text-sm text-gray-600">Total Workouts</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-purple-600" id="challengesWon">12</p>
+                                <p class="text-sm text-gray-600">Challenges Won</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="editProfile()" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                        Edit Profile
+                    </button>
+                </div>
+            </div>
+
+            <!-- Profile Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Personal Information -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Personal Information</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 mb-2">Full Name</label>
+                                <input type="text" id="fullName" value="John Doe" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2">Email</label>
+                                <input type="email" id="email" value="john.doe@example.com" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2">Date of Birth</label>
+                                <input type="date" id="dateOfBirth" value="1990-01-01" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2">Gender</label>
+                                <select id="gender" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2">Height (cm)</label>
+                                <input type="number" id="height" value="175" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2">Current Weight (kg)</label>
+                                <input type="number" id="currentWeight" value="75" step="0.1" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <label class="block text-gray-700 mb-2">Bio</label>
+                            <textarea id="bio" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Tell us about yourself...">Fitness enthusiast passionate about strength training and healthy living. Always looking for new challenges and ways to improve!</textarea>
+                        </div>
+                        <div class="mt-6 flex justify-end">
+                            <button onclick="saveProfile()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Fitness Goals -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Fitness Goals</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                                <div>
+                                    <h3 class="font-medium text-gray-800">Lose 10kg</h3>
+                                    <p class="text-sm text-gray-600">Target: December 2024</p>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-20 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-green-600 h-2 rounded-full" style="width: 60%"></div>
+                                    </div>
+                                    <span class="text-sm font-medium">60%</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                                <div>
+                                    <h3 class="font-medium text-gray-800">Run 10km</h3>
+                                    <p class="text-sm text-gray-600">Target: March 2024</p>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-20 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-blue-600 h-2 rounded-full" style="width: 80%"></div>
+                                    </div>
+                                    <span class="text-sm font-medium">80%</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                                <div>
+                                    <h3 class="font-medium text-gray-800">Bench Press 100kg</h3>
+                                    <p class="text-sm text-gray-600">Target: June 2024</p>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-20 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-purple-600 h-2 rounded-full" style="width: 40%"></div>
+                                    </div>
+                                    <span class="text-sm font-medium">40%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="addGoal()" class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                            <i class="fas fa-plus mr-2"></i>Add Goal
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="space-y-6">
+                    <!-- Achievements -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Achievements</h2>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-trophy text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-800">First Workout</p>
+                                    <p class="text-sm text-gray-600">Completed your first workout</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-fire text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-800">7-Day Streak</p>
+                                    <p class="text-sm text-gray-600">Worked out for 7 days in a row</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-medal text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-800">Challenge Winner</p>
+                                    <p class="text-sm text-gray-600">Won your first challenge</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-lock text-gray-500"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-500">30-Day Streak</p>
+                                    <p class="text-sm text-gray-500">Work out for 30 days in a row</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Privacy Settings -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Privacy Settings</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-medium text-gray-800">Profile Visibility</p>
+                                    <p class="text-sm text-gray-600">Who can see your profile</p>
+                                </div>
+                                <select class="p-2 border border-gray-300 rounded-lg">
+                                    <option value="public">Public</option>
+                                    <option value="friends">Friends Only</option>
+                                    <option value="private">Private</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-medium text-gray-800">Progress Sharing</p>
+                                    <p class="text-sm text-gray-600">Share progress with community</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer">
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-medium text-gray-800">Email Notifications</p>
+                                    <p class="text-sm text-gray-600">Receive email updates</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer">
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Actions -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Account Actions</h2>
+                        <div class="space-y-3">
+                            <button onclick="changePassword()" class="w-full text-left p-3 text-gray-700 hover:bg-gray-50 rounded-lg transition">
+                                <i class="fas fa-key mr-2"></i>Change Password
+                            </button>
+                            <button onclick="exportData()" class="w-full text-left p-3 text-gray-700 hover:bg-gray-50 rounded-lg transition">
+                                <i class="fas fa-download mr-2"></i>Export Data
+                            </button>
+                            <button onclick="deleteAccount()" class="w-full text-left p-3 text-red-600 hover:bg-red-50 rounded-lg transition">
+                                <i class="fas fa-trash mr-2"></i>Delete Account
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div id="changePasswordModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg p-8 max-w-md w-full">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Change Password</h2>
+                    <button onclick="hideChangePasswordModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <form id="changePasswordForm" class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 mb-2">Current Password</label>
+                        <input type="password" id="currentPassword" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">New Password</label>
+                        <input type="password" id="newPassword" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Confirm New Password</label>
+                        <input type="password" id="confirmNewPassword" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" onclick="hideChangePasswordModal()" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                            Change Password
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/profile.js"></script>
+</body>
+</html> 

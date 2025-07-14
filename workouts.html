@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Workouts - GymFit Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <i class="fas fa-dumbbell text-3xl text-blue-600 mr-3"></i>
+                    <h1 class="text-2xl font-bold text-gray-800">GymFit Hub</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <button onclick="toggleNotifications()" class="relative p-2 text-gray-600 hover:text-blue-600">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span id="notificationBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">3</span>
+                        </button>
+                    </div>
+                    <div class="relative">
+                        <button onclick="toggleProfileMenu()" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600">
+                            <img id="userAvatar" src="https://via.placeholder.com/32" alt="Profile" class="w-8 h-8 rounded-full">
+                            <span id="userName">User Name</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="profileMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg hidden z-50">
+                            <a href="profile.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
+                            <a href="settings.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Settings</a>
+                            <hr>
+                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-lg min-h-screen">
+            <nav class="mt-8">
+                <div class="px-4 space-y-2">
+                    <a href="dashboard.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-tachometer-alt mr-3"></i>Dashboard
+                    </a>
+                    <a href="workouts.html" class="flex items-center px-4 py-2 text-blue-600 bg-blue-50 rounded-lg">
+                        <i class="fas fa-dumbbell mr-3"></i>My Workouts
+                    </a>
+                    <a href="progress.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-chart-line mr-3"></i>Progress
+                    </a>
+                    <a href="community.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-users mr-3"></i>Community
+                    </a>
+                    <a href="challenges.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-trophy mr-3"></i>Challenges
+                    </a>
+                    <a href="profile.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-user mr-3"></i>Profile
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-8">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800">My Workouts</h1>
+                    <p class="text-gray-600">Create and manage your workout routines</p>
+                </div>
+                <button onclick="showCreateWorkoutModal()" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition flex items-center">
+                    <i class="fas fa-plus mr-2"></i>
+                    Create Workout
+                </button>
+            </div>
+
+            <!-- Workout Categories -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                <button onclick="filterWorkouts('all')" class="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition text-center">
+                    <i class="fas fa-list text-2xl text-blue-600 mb-2"></i>
+                    <p class="font-medium">All Workouts</p>
+                    <p class="text-sm text-gray-600" id="allCount">0</p>
+                </button>
+                <button onclick="filterWorkouts('strength')" class="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition text-center">
+                    <i class="fas fa-dumbbell text-2xl text-red-600 mb-2"></i>
+                    <p class="font-medium">Strength</p>
+                    <p class="text-sm text-gray-600" id="strengthCount">0</p>
+                </button>
+                <button onclick="filterWorkouts('cardio')" class="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition text-center">
+                    <i class="fas fa-heartbeat text-2xl text-green-600 mb-2"></i>
+                    <p class="font-medium">Cardio</p>
+                    <p class="text-sm text-gray-600" id="cardioCount">0</p>
+                </button>
+                <button onclick="filterWorkouts('flexibility')" class="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition text-center">
+                    <i class="fas fa-yoga text-2xl text-purple-600 mb-2"></i>
+                    <p class="font-medium">Flexibility</p>
+                    <p class="text-sm text-gray-600" id="flexibilityCount">0</p>
+                </button>
+            </div>
+
+            <!-- Workouts Grid -->
+            <div id="workoutsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Sample Workout Cards -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800">Upper Body Strength</h3>
+                            <div class="flex space-x-2">
+                                <button onclick="editWorkout(1)" class="text-blue-600 hover:text-blue-700">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button onclick="deleteWorkout(1)" class="text-red-600 hover:text-red-700">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">Complete upper body workout focusing on chest, back, and arms</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm">Strength</span>
+                            <span class="text-gray-600">45 min</span>
+                        </div>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Exercises:</span>
+                                <span class="font-medium">8</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Last used:</span>
+                                <span class="font-medium">2 days ago</span>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="startWorkout(1)" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                                Start
+                            </button>
+                            <button onclick="viewWorkout(1)" class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition">
+                                View
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800">Cardio Blast</h3>
+                            <div class="flex space-x-2">
+                                <button onclick="editWorkout(2)" class="text-blue-600 hover:text-blue-700">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button onclick="deleteWorkout(2)" class="text-red-600 hover:text-red-700">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">High-intensity cardio workout for maximum calorie burn</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">Cardio</span>
+                            <span class="text-gray-600">30 min</span>
+                        </div>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Exercises:</span>
+                                <span class="font-medium">6</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600">Last used:</span>
+                                <span class="font-medium">1 week ago</span>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="startWorkout(2)" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                                Start
+                            </button>
+                            <button onclick="viewWorkout(2)" class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition">
+                                View
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create Workout Modal -->
+    <div id="createWorkoutModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg p-8 max-w-2xl w-full max-h-screen overflow-y-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Create New Workout</h2>
+                    <button onclick="hideCreateWorkoutModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <form id="createWorkoutForm" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-700 mb-2">Workout Name</label>
+                            <input type="text" id="workoutName" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">Category</label>
+                            <select id="workoutCategory" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                                <option value="">Select Category</option>
+                                <option value="strength">Strength</option>
+                                <option value="cardio">Cardio</option>
+                                <option value="flexibility">Flexibility</option>
+                                <option value="mixed">Mixed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Description</label>
+                        <textarea id="workoutDescription" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Estimated Duration (minutes)</label>
+                        <input type="number" id="workoutDuration" min="5" max="180" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                    </div>
+                    
+                    <!-- Exercise Builder -->
+                    <div>
+                        <label class="block text-gray-700 mb-2">Exercises</label>
+                        <div id="exerciseList" class="space-y-3">
+                            <!-- Exercises will be added here -->
+                        </div>
+                        <button type="button" onclick="addExercise()" class="mt-3 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                            <i class="fas fa-plus mr-2"></i>Add Exercise
+                        </button>
+                    </div>
+
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" onclick="hideCreateWorkoutModal()" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                            Create Workout
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/workouts.js"></script>
+</body>
+</html> 

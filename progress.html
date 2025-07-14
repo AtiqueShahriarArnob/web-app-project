@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Tracking - GymFit Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <i class="fas fa-dumbbell text-3xl text-blue-600 mr-3"></i>
+                    <h1 class="text-2xl font-bold text-gray-800">GymFit Hub</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <button onclick="toggleNotifications()" class="relative p-2 text-gray-600 hover:text-blue-600">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span id="notificationBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">3</span>
+                        </button>
+                    </div>
+                    <div class="relative">
+                        <button onclick="toggleProfileMenu()" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600">
+                            <img id="userAvatar" src="https://via.placeholder.com/32" alt="Profile" class="w-8 h-8 rounded-full">
+                            <span id="userName">User Name</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="profileMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg hidden z-50">
+                            <a href="profile.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
+                            <a href="settings.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Settings</a>
+                            <hr>
+                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-lg min-h-screen">
+            <nav class="mt-8">
+                <div class="px-4 space-y-2">
+                    <a href="dashboard.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-tachometer-alt mr-3"></i>Dashboard
+                    </a>
+                    <a href="workouts.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-dumbbell mr-3"></i>My Workouts
+                    </a>
+                    <a href="progress.html" class="flex items-center px-4 py-2 text-blue-600 bg-blue-50 rounded-lg">
+                        <i class="fas fa-chart-line mr-3"></i>Progress
+                    </a>
+                    <a href="community.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-users mr-3"></i>Community
+                    </a>
+                    <a href="challenges.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-trophy mr-3"></i>Challenges
+                    </a>
+                    <a href="profile.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-user mr-3"></i>Profile
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-8">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800">Progress Tracking</h1>
+                    <p class="text-gray-600">Monitor your fitness journey with detailed analytics</p>
+                </div>
+                <button onclick="showAddMetricsModal()" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition flex items-center">
+                    <i class="fas fa-plus mr-2"></i>
+                    Add Metrics
+                </button>
+            </div>
+
+            <!-- Time Period Filter -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-xl font-semibold text-gray-800">Time Period</h2>
+                    <div class="flex space-x-2">
+                        <button onclick="setTimePeriod('week')" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Week</button>
+                        <button onclick="setTimePeriod('month')" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Month</button>
+                        <button onclick="setTimePeriod('year')" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Year</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metrics Overview -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                            <i class="fas fa-weight text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Current Weight</p>
+                            <p class="text-2xl font-bold text-gray-900" id="currentWeightDisplay">75 kg</p>
+                            <p class="text-sm text-green-600" id="weightChange">-2.5 kg this month</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-green-100 text-green-600">
+                            <i class="fas fa-calculator text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">BMI</p>
+                            <p class="text-2xl font-bold text-gray-900" id="currentBMI">22.5</p>
+                            <p class="text-sm text-green-600" id="bmiChange">-0.8 this month</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-purple-100 text-purple-600">
+                            <i class="fas fa-ruler text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Body Fat %</p>
+                            <p class="text-2xl font-bold text-gray-900" id="currentBodyFat">18%</p>
+                            <p class="text-sm text-green-600" id="bodyFatChange">-1.2% this month</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center">
+                        <div class="p-3 rounded-full bg-orange-100 text-orange-600">
+                            <i class="fas fa-fire text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Workouts</p>
+                            <p class="text-2xl font-bold text-gray-900" id="totalWorkouts">24</p>
+                            <p class="text-sm text-blue-600" id="workoutChange">+8 this month</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- Weight Progress Chart -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Weight Progress</h3>
+                    <canvas id="weightChart" width="400" height="200"></canvas>
+                </div>
+
+                <!-- Workout Frequency Chart -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Workout Frequency</h3>
+                    <canvas id="workoutChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Metrics Log -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Recent Metrics</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="text-left py-3 px-4">Date</th>
+                                <th class="text-left py-3 px-4">Weight (kg)</th>
+                                <th class="text-left py-3 px-4">BMI</th>
+                                <th class="text-left py-3 px-4">Body Fat %</th>
+                                <th class="text-left py-3 px-4">Notes</th>
+                                <th class="text-left py-3 px-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="metricsTableBody">
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="py-3 px-4">2024-01-15</td>
+                                <td class="py-3 px-4">75.2</td>
+                                <td class="py-3 px-4">22.5</td>
+                                <td class="py-3 px-4">18.2</td>
+                                <td class="py-3 px-4">After morning workout</td>
+                                <td class="py-3 px-4">
+                                    <button onclick="editMetric(1)" class="text-blue-600 hover:text-blue-700 mr-2">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button onclick="deleteMetric(1)" class="text-red-600 hover:text-red-700">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="py-3 px-4">2024-01-08</td>
+                                <td class="py-3 px-4">76.1</td>
+                                <td class="py-3 px-4">22.8</td>
+                                <td class="py-3 px-4">18.8</td>
+                                <td class="py-3 px-4">Weekly check-in</td>
+                                <td class="py-3 px-4">
+                                    <button onclick="editMetric(2)" class="text-blue-600 hover:text-blue-700 mr-2">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button onclick="deleteMetric(2)" class="text-red-600 hover:text-red-700">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Metrics Modal -->
+    <div id="addMetricsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg p-8 max-w-md w-full">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Add Metrics</h2>
+                    <button onclick="hideAddMetricsModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <form id="addMetricsForm" class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 mb-2">Date</label>
+                        <input type="date" id="metricDate" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Weight (kg)</label>
+                        <input type="number" id="metricWeight" step="0.1" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Body Fat %</label>
+                        <input type="number" id="metricBodyFat" step="0.1" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Notes</label>
+                        <textarea id="metricNotes" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
+                    </div>
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" onclick="hideAddMetricsModal()" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                            Save Metrics
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/progress.js"></script>
+</body>
+</html> 
