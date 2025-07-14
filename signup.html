@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+    .bg-cover {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('https://static.vecteezy.com/system/resources/previews/031/691/772/non_2x/within-gym-with-modern-fitness-equipment-for-fitness-events-and-more-modern-of-gym-interior-with-equipment-sports-equipment-in-the-gym-created-with-generative-ai-photo.jpg') center center/cover no-repeat;
+      z-index: 0;
+    }
+    .bg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(20, 30, 48, 0.65);
+      z-index: 1;
+    }
+    .signup-center {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .signup-container {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 24px 0 rgba(44, 62, 80, 0.10);
+      padding: 40px 32px;
+      max-width: 370px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      border: 1px solid #e5e7eb;
+    }
+    .signup-container h2 {
+      color: #1a237e;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .signup-container label {
+      color: #374151;
+      font-size: 1rem;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+    .signup-container input, .signup-container select {
+      padding: 12px;
+      border: 1px solid #b0bec5;
+      border-radius: 7px;
+      background: #f8fafc;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 8px;
+    }
+    .signup-container input:focus, .signup-container select:focus {
+      border-color: #1a237e;
+    }
+    .signup-container button {
+      background: #1a237e;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 12px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .signup-container button:hover {
+      background: #283593;
+    }
+    .signup-container .signin-link {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 0.95rem;
+    }
+    .signup-container .signin-link a {
+      color: #1a237e;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    .signup-container .signin-link a:hover {
+      color: #283593;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-cover"></div>
+  <div class="bg-overlay"></div>
+  <div class="signup-center">
+    <form class="signup-container">
+      <h2>Create Account</h2>
+      <label for="fullname">Full Name</label>
+      <input id="fullname" type="text" placeholder="Full Name" required>
+      <label for="email">Email Address</label>
+      <input id="email" type="email" placeholder="Email Address" required>
+      <label for="password">Password</label>
+      <input id="password" type="password" placeholder="Password" required>
+      <label for="confirm-password">Confirm Password</label>
+      <input id="confirm-password" type="password" placeholder="Confirm Password" required>
+      <label for="role">Role</label>
+      <select id="role" required>
+        <option value="">Select Role</option>
+        <option value="customer">Customer</option>
+        <option value="admin">Admin</option>
+        <option value="employee">Employee</option>
+      </select>
+      <button type="submit">Sign Up</button>
+      <div class="signin-link">
+        Already have an account? <a href="signin.html">Sign In</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html> 

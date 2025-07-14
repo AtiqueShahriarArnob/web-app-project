@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenges - GymFit Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <i class="fas fa-dumbbell text-3xl text-blue-600 mr-3"></i>
+                    <h1 class="text-2xl font-bold text-gray-800">GymFit Hub</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <button onclick="toggleNotifications()" class="relative p-2 text-gray-600 hover:text-blue-600">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span id="notificationBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">3</span>
+                        </button>
+                    </div>
+                    <div class="relative">
+                        <button onclick="toggleProfileMenu()" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600">
+                            <img id="userAvatar" src="https://via.placeholder.com/32" alt="Profile" class="w-8 h-8 rounded-full">
+                            <span id="userName">User Name</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="profileMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg hidden z-50">
+                            <a href="profile.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
+                            <a href="settings.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Settings</a>
+                            <hr>
+                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-lg min-h-screen">
+            <nav class="mt-8">
+                <div class="px-4 space-y-2">
+                    <a href="dashboard.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-tachometer-alt mr-3"></i>Dashboard
+                    </a>
+                    <a href="workouts.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-dumbbell mr-3"></i>My Workouts
+                    </a>
+                    <a href="progress.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-chart-line mr-3"></i>Progress
+                    </a>
+                    <a href="community.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-users mr-3"></i>Community
+                    </a>
+                    <a href="challenges.html" class="flex items-center px-4 py-2 text-blue-600 bg-blue-50 rounded-lg">
+                        <i class="fas fa-trophy mr-3"></i>Challenges
+                    </a>
+                    <a href="profile.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-user mr-3"></i>Profile
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-8">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800">Fitness Challenges</h1>
+                    <p class="text-gray-600">Join challenges and compete with the community</p>
+                </div>
+                <button onclick="showCreateChallengeModal()" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition flex items-center">
+                    <i class="fas fa-plus mr-2"></i>
+                    Create Challenge
+                </button>
+            </div>
+
+            <!-- Challenge Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <i class="fas fa-trophy text-3xl text-yellow-600 mb-3"></i>
+                    <p class="text-2xl font-bold text-gray-800">3</p>
+                    <p class="text-gray-600">Active Challenges</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <i class="fas fa-medal text-3xl text-blue-600 mb-3"></i>
+                    <p class="text-2xl font-bold text-gray-800">12</p>
+                    <p class="text-gray-600">Challenges Won</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <i class="fas fa-users text-3xl text-green-600 mb-3"></i>
+                    <p class="text-2xl font-bold text-gray-800">1,247</p>
+                    <p class="text-gray-600">Total Participants</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <i class="fas fa-fire text-3xl text-red-600 mb-3"></i>
+                    <p class="text-2xl font-bold text-gray-800">89</p>
+                    <p class="text-gray-600">Current Streak</p>
+                </div>
+            </div>
+
+            <!-- Challenge Categories -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Challenge Categories</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <button onclick="filterChallenges('all')" class="p-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-center">
+                        <i class="fas fa-list text-2xl mb-2"></i>
+                        <p class="font-medium">All Challenges</p>
+                    </button>
+                    <button onclick="filterChallenges('strength')" class="p-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition text-center">
+                        <i class="fas fa-dumbbell text-2xl mb-2"></i>
+                        <p class="font-medium">Strength</p>
+                    </button>
+                    <button onclick="filterChallenges('cardio')" class="p-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition text-center">
+                        <i class="fas fa-heartbeat text-2xl mb-2"></i>
+                        <p class="font-medium">Cardio</p>
+                    </button>
+                    <button onclick="filterChallenges('weightloss')" class="p-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition text-center">
+                        <i class="fas fa-weight text-2xl mb-2"></i>
+                        <p class="font-medium">Weight Loss</p>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Active Challenges -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Active Challenges</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Challenge Card 1 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="bg-gradient-to-r from-blue-500 to-purple-600 p-6 text-white">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-xl font-bold mb-2">30-Day Fitness Challenge</h3>
+                                    <p class="text-blue-100">Complete 30 days of consistent workouts</p>
+                                </div>
+                                <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">Active</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-users text-gray-600"></i>
+                                    <span class="text-gray-600">1,247 participants</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-clock text-gray-600"></i>
+                                    <span class="text-gray-600">15 days left</span>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-600">Progress</span>
+                                    <span class="text-gray-800">15/30 days</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-600 h-2 rounded-full" style="width: 50%"></div>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="viewChallenge(1)" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                                    View Details
+                                </button>
+                                <button onclick="updateProgress(1)" class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition">
+                                    Update Progress
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Challenge Card 2 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="bg-gradient-to-r from-green-500 to-blue-600 p-6 text-white">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-xl font-bold mb-2">Push-Up Challenge</h3>
+                                    <p class="text-green-100">Increase push-ups by 10 each day</p>
+                                </div>
+                                <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">Active</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-users text-gray-600"></i>
+                                    <span class="text-gray-600">856 participants</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-clock text-gray-600"></i>
+                                    <span class="text-gray-600">7 days left</span>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-600">Progress</span>
+                                    <span class="text-gray-800">23/30 days</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-green-600 h-2 rounded-full" style="width: 77%"></div>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="viewChallenge(2)" class="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
+                                    View Details
+                                </button>
+                                <button onclick="updateProgress(2)" class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition">
+                                    Update Progress
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Challenge Card 3 -->
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="bg-gradient-to-r from-purple-500 to-pink-600 p-6 text-white">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-xl font-bold mb-2">Weight Loss Challenge</h3>
+                                    <p class="text-purple-100">Lose 5kg in 8 weeks</p>
+                                </div>
+                                <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">Active</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-users text-gray-600"></i>
+                                    <span class="text-gray-600">567 participants</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-clock text-gray-600"></i>
+                                    <span class="text-gray-600">3 weeks left</span>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-600">Progress</span>
+                                    <span class="text-gray-800">2.5/5 kg</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-purple-600 h-2 rounded-full" style="width: 50%"></div>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="viewChallenge(3)" class="flex-1 bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition">
+                                    View Details
+                                </button>
+                                <button onclick="updateProgress(3)" class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition">
+                                    Update Progress
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leaderboard -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Challenge Leaderboard</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="text-left py-3 px-4">Rank</th>
+                                <th class="text-left py-3 px-4">User</th>
+                                <th class="text-left py-3 px-4">Challenge</th>
+                                <th class="text-left py-3 px-4">Progress</th>
+                                <th class="text-left py-3 px-4">Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <span class="w-8 h-8 bg-yellow-500 text-white rounded-full flex items-center justify-center font-bold">1</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <img src="https://via.placeholder.com/32" alt="User" class="w-8 h-8 rounded-full mr-3">
+                                        <span class="font-medium">Sarah Johnson</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">30-Day Fitness Challenge</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
+                                            <div class="bg-green-600 h-2 rounded-full" style="width: 90%"></div>
+                                        </div>
+                                        <span class="text-sm">27/30</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4 font-bold text-green-600">2,450</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <span class="w-8 h-8 bg-gray-400 text-white rounded-full flex items-center justify-center font-bold">2</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <img src="https://via.placeholder.com/32" alt="User" class="w-8 h-8 rounded-full mr-3">
+                                        <span class="font-medium">Mike Chen</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">Push-Up Challenge</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
+                                            <div class="bg-blue-600 h-2 rounded-full" style="width: 85%"></div>
+                                        </div>
+                                        <span class="text-sm">25/30</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4 font-bold text-blue-600">2,180</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <span class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold">3</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <img src="https://via.placeholder.com/32" alt="User" class="w-8 h-8 rounded-full mr-3">
+                                        <span class="font-medium">Emma Davis</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">Weight Loss Challenge</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
+                                            <div class="bg-purple-600 h-2 rounded-full" style="width: 70%"></div>
+                                        </div>
+                                        <span class="text-sm">3.5/5 kg</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4 font-bold text-purple-600">1,950</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create Challenge Modal -->
+    <div id="createChallengeModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg p-8 max-w-2xl w-full">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">Create Challenge</h2>
+                    <button onclick="hideCreateChallengeModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <form id="createChallengeForm" class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 mb-2">Challenge Name</label>
+                        <input type="text" id="challengeName" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-700 mb-2">Category</label>
+                            <select id="challengeCategory" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                                <option value="">Select Category</option>
+                                <option value="strength">Strength</option>
+                                <option value="cardio">Cardio</option>
+                                <option value="weightloss">Weight Loss</option>
+                                <option value="flexibility">Flexibility</option>
+                                <option value="general">General Fitness</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">Duration (days)</label>
+                            <input type="number" id="challengeDuration" min="1" max="365" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Description</label>
+                        <textarea id="challengeDescription" rows="4" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Goal</label>
+                        <input type="text" id="challengeGoal" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="e.g., Complete 30 push-ups daily">
+                    </div>
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" onclick="hideCreateChallengeModal()" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                            Create Challenge
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/challenges.js"></script>
+</body>
+</html> 
