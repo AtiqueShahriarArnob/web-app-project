@@ -6,7 +6,6 @@
     <title>Progress Tracking - GymFit Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-gray-50">
     <!-- Navigation -->
@@ -19,13 +18,13 @@
                 </div>
                 <div class="flex items-center space-x-4">
                     <div class="relative">
-                        <button onclick="toggleNotifications()" class="relative p-2 text-gray-600 hover:text-blue-600">
+                        <button class="relative p-2 text-gray-600 hover:text-blue-600">
                             <i class="fas fa-bell text-xl"></i>
                             <span id="notificationBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">3</span>
                         </button>
                     </div>
                     <div class="relative">
-                        <button onclick="toggleProfileMenu()" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600">
+                        <button class="flex items-center space-x-2 text-gray-700 hover:text-blue-600">
                             <img id="userAvatar" src="https://via.placeholder.com/32" alt="Profile" class="w-8 h-8 rounded-full">
                             <span id="userName">User Name</span>
                             <i class="fas fa-chevron-down"></i>
@@ -48,6 +47,9 @@
         <aside class="w-64 bg-white shadow-lg min-h-screen">
             <nav class="mt-8">
                 <div class="px-4 space-y-2">
+                    <a href="index.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-home mr-3"></i>Home
+                    </a>
                     <a href="dashboard.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
                         <i class="fas fa-tachometer-alt mr-3"></i>Dashboard
                     </a>
@@ -66,6 +68,9 @@
                     <a href="profile.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
                         <i class="fas fa-user mr-3"></i>Profile
                     </a>
+                    <a href="contact.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-envelope mr-3"></i>Contact Us
+                    </a>
                 </div>
             </nav>
         </aside>
@@ -78,7 +83,7 @@
                     <h1 class="text-3xl font-bold text-gray-800">Progress Tracking</h1>
                     <p class="text-gray-600">Monitor your fitness journey with detailed analytics</p>
                 </div>
-                <button onclick="showAddMetricsModal()" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition flex items-center">
+                <button class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition flex items-center">
                     <i class="fas fa-plus mr-2"></i>
                     Add Metrics
                 </button>
@@ -89,9 +94,9 @@
                 <div class="flex items-center justify-between">
                     <h2 class="text-xl font-semibold text-gray-800">Time Period</h2>
                     <div class="flex space-x-2">
-                        <button onclick="setTimePeriod('week')" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Week</button>
-                        <button onclick="setTimePeriod('month')" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Month</button>
-                        <button onclick="setTimePeriod('year')" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Year</button>
+                        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg">Week</button>
+                        <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Month</button>
+                        <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Year</button>
                     </div>
                 </div>
             </div>
@@ -189,10 +194,10 @@
                                 <td class="py-3 px-4">18.2</td>
                                 <td class="py-3 px-4">After morning workout</td>
                                 <td class="py-3 px-4">
-                                    <button onclick="editMetric(1)" class="text-blue-600 hover:text-blue-700 mr-2">
+                                    <button class="text-blue-600 hover:text-blue-700 mr-2">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button onclick="deleteMetric(1)" class="text-red-600 hover:text-red-700">
+                                    <button class="text-red-600 hover:text-red-700">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
@@ -204,10 +209,10 @@
                                 <td class="py-3 px-4">18.8</td>
                                 <td class="py-3 px-4">Weekly check-in</td>
                                 <td class="py-3 px-4">
-                                    <button onclick="editMetric(2)" class="text-blue-600 hover:text-blue-700 mr-2">
+                                    <button class="text-blue-600 hover:text-blue-700 mr-2">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button onclick="deleteMetric(2)" class="text-red-600 hover:text-red-700">
+                                    <button class="text-red-600 hover:text-red-700">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
@@ -219,46 +224,5 @@
         </main>
     </div>
 
-    <!-- Add Metrics Modal -->
-    <div id="addMetricsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white rounded-lg p-8 max-w-md w-full">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold">Add Metrics</h2>
-                    <button onclick="hideAddMetricsModal()" class="text-gray-500 hover:text-gray-700">
-                        <i class="fas fa-times text-xl"></i>
-                    </button>
-                </div>
-                <form id="addMetricsForm" class="space-y-4">
-                    <div>
-                        <label class="block text-gray-700 mb-2">Date</label>
-                        <input type="date" id="metricDate" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 mb-2">Weight (kg)</label>
-                        <input type="number" id="metricWeight" step="0.1" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 mb-2">Body Fat %</label>
-                        <input type="number" id="metricBodyFat" step="0.1" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 mb-2">Notes</label>
-                        <textarea id="metricNotes" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
-                    </div>
-                    <div class="flex justify-end space-x-4">
-                        <button type="button" onclick="hideAddMetricsModal()" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
-                            Cancel
-                        </button>
-                        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                            Save Metrics
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <script src="js/progress.js"></script>
 </body>
 </html> 

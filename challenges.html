@@ -18,13 +18,13 @@
                 </div>
                 <div class="flex items-center space-x-4">
                     <div class="relative">
-                        <button onclick="toggleNotifications()" class="relative p-2 text-gray-600 hover:text-blue-600">
+                        <button  class="relative p-2 text-gray-600 hover:text-blue-600">
                             <i class="fas fa-bell text-xl"></i>
                             <span id="notificationBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">3</span>
                         </button>
                     </div>
                     <div class="relative">
-                        <button onclick="toggleProfileMenu()" class="flex items-center space-x-2 text-gray-700 hover:text-blue-600">
+                        <button  class="flex items-center space-x-2 text-gray-700 hover:text-blue-600">
                             <img id="userAvatar" src="https://via.placeholder.com/32" alt="Profile" class="w-8 h-8 rounded-full">
                             <span id="userName">User Name</span>
                             <i class="fas fa-chevron-down"></i>
@@ -33,7 +33,7 @@
                             <a href="profile.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
                             <a href="settings.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Settings</a>
                             <hr>
-                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Logout</button>
+                            <button  class="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Logout</button>
                         </div>
                     </div>
                 </div>
@@ -47,6 +47,9 @@
         <aside class="w-64 bg-white shadow-lg min-h-screen">
             <nav class="mt-8">
                 <div class="px-4 space-y-2">
+                    <a href="index.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-home mr-3"></i>Home
+                    </a>
                     <a href="dashboard.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
                         <i class="fas fa-tachometer-alt mr-3"></i>Dashboard
                     </a>
@@ -65,6 +68,9 @@
                     <a href="profile.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
                         <i class="fas fa-user mr-3"></i>Profile
                     </a>
+                    <a href="contact.html" class="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg">
+                        <i class="fas fa-envelope mr-3"></i>Contact Us
+                    </a>
                 </div>
             </nav>
         </aside>
@@ -77,7 +83,7 @@
                     <h1 class="text-3xl font-bold text-gray-800">Fitness Challenges</h1>
                     <p class="text-gray-600">Join challenges and compete with the community</p>
                 </div>
-                <button onclick="showCreateChallengeModal()" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition flex items-center">
+                <button  class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition flex items-center">
                     <i class="fas fa-plus mr-2"></i>
                     Create Challenge
                 </button>
@@ -111,19 +117,19 @@
             <div class="bg-white rounded-lg shadow-md p-6 mb-8">
                 <h2 class="text-xl font-semibold text-gray-800 mb-4">Challenge Categories</h2>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <button onclick="filterChallenges('all')" class="p-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-center">
+                    <button  class="p-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-center">
                         <i class="fas fa-list text-2xl mb-2"></i>
                         <p class="font-medium">All Challenges</p>
                     </button>
-                    <button onclick="filterChallenges('strength')" class="p-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition text-center">
+                    <button  class="p-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition text-center">
                         <i class="fas fa-dumbbell text-2xl mb-2"></i>
                         <p class="font-medium">Strength</p>
                     </button>
-                    <button onclick="filterChallenges('cardio')" class="p-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition text-center">
+                    <button  class="p-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition text-center">
                         <i class="fas fa-heartbeat text-2xl mb-2"></i>
                         <p class="font-medium">Cardio</p>
                     </button>
-                    <button onclick="filterChallenges('weightloss')" class="p-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition text-center">
+                    <button  class="p-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition text-center">
                         <i class="fas fa-weight text-2xl mb-2"></i>
                         <p class="font-medium">Weight Loss</p>
                     </button>
@@ -136,7 +142,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Challenge Card 1 -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <div class="bg-gradient-to-r from-blue-500 to-purple-600 p-6 text-white">
+                        <div class="bg-blue-600 p-6 text-white">
                             <div class="flex justify-between items-start">
                                 <div>
                                     <h3 class="text-xl font-bold mb-2">30-Day Fitness Challenge</h3>
@@ -166,10 +172,10 @@
                                 </div>
                             </div>
                             <div class="flex space-x-2">
-                                <button onclick="viewChallenge(1)" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                                <button class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
                                     View Details
                                 </button>
-                                <button onclick="updateProgress(1)" class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition">
+                                <button class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition">
                                     Update Progress
                                 </button>
                             </div>
@@ -178,7 +184,7 @@
 
                     <!-- Challenge Card 2 -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <div class="bg-gradient-to-r from-green-500 to-blue-600 p-6 text-white">
+                        <div class="bg-green-600 p-6 text-white">
                             <div class="flex justify-between items-start">
                                 <div>
                                     <h3 class="text-xl font-bold mb-2">Push-Up Challenge</h3>
@@ -208,10 +214,10 @@
                                 </div>
                             </div>
                             <div class="flex space-x-2">
-                                <button onclick="viewChallenge(2)" class="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
+                                <button class="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
                                     View Details
                                 </button>
-                                <button onclick="updateProgress(2)" class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition">
+                                <button class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition">
                                     Update Progress
                                 </button>
                             </div>
@@ -220,7 +226,7 @@
 
                     <!-- Challenge Card 3 -->
                     <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <div class="bg-gradient-to-r from-purple-500 to-pink-600 p-6 text-white">
+                        <div class="bg-purple-600 p-6 text-white">
                             <div class="flex justify-between items-start">
                                 <div>
                                     <h3 class="text-xl font-bold mb-2">Weight Loss Challenge</h3>
@@ -250,10 +256,10 @@
                                 </div>
                             </div>
                             <div class="flex space-x-2">
-                                <button onclick="viewChallenge(3)" class="flex-1 bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition">
+                                <button class="flex-1 bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition">
                                     View Details
                                 </button>
-                                <button onclick="updateProgress(3)" class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition">
+                                <button class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition">
                                     Update Progress
                                 </button>
                             </div>
@@ -286,7 +292,7 @@
                                 <td class="py-3 px-4">
                                     <div class="flex items-center">
                                         <img src="https://via.placeholder.com/32" alt="User" class="w-8 h-8 rounded-full mr-3">
-                                        <span class="font-medium">Sarah Johnson</span>
+                                        <span class="font-medium">Arnob</span>
                                     </div>
                                 </td>
                                 <td class="py-3 px-4">30-Day Fitness Challenge</td>
@@ -309,7 +315,7 @@
                                 <td class="py-3 px-4">
                                     <div class="flex items-center">
                                         <img src="https://via.placeholder.com/32" alt="User" class="w-8 h-8 rounded-full mr-3">
-                                        <span class="font-medium">Mike Chen</span>
+                                        <span class="font-medium">Atique</span>
                                     </div>
                                 </td>
                                 <td class="py-3 px-4">Push-Up Challenge</td>
@@ -332,7 +338,7 @@
                                 <td class="py-3 px-4">
                                     <div class="flex items-center">
                                         <img src="https://via.placeholder.com/32" alt="User" class="w-8 h-8 rounded-full mr-3">
-                                        <span class="font-medium">Emma Davis</span>
+                                        <span class="font-medium">Shahriar</span>
                                     </div>
                                 </td>
                                 <td class="py-3 px-4">Weight Loss Challenge</td>
@@ -353,59 +359,5 @@
         </main>
     </div>
 
-    <!-- Create Challenge Modal -->
-    <div id="createChallengeModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white rounded-lg p-8 max-w-2xl w-full">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold">Create Challenge</h2>
-                    <button onclick="hideCreateChallengeModal()" class="text-gray-500 hover:text-gray-700">
-                        <i class="fas fa-times text-xl"></i>
-                    </button>
-                </div>
-                <form id="createChallengeForm" class="space-y-4">
-                    <div>
-                        <label class="block text-gray-700 mb-2">Challenge Name</label>
-                        <input type="text" id="challengeName" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-gray-700 mb-2">Category</label>
-                            <select id="challengeCategory" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
-                                <option value="">Select Category</option>
-                                <option value="strength">Strength</option>
-                                <option value="cardio">Cardio</option>
-                                <option value="weightloss">Weight Loss</option>
-                                <option value="flexibility">Flexibility</option>
-                                <option value="general">General Fitness</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-gray-700 mb-2">Duration (days)</label>
-                            <input type="number" id="challengeDuration" min="1" max="365" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 mb-2">Description</label>
-                        <textarea id="challengeDescription" rows="4" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 mb-2">Goal</label>
-                        <input type="text" id="challengeGoal" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="e.g., Complete 30 push-ups daily">
-                    </div>
-                    <div class="flex justify-end space-x-4">
-                        <button type="button" onclick="hideCreateChallengeModal()" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
-                            Cancel
-                        </button>
-                        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                            Create Challenge
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <script src="js/challenges.js"></script>
 </body>
 </html> 

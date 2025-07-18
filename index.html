@@ -6,7 +6,6 @@
     <title>GymFit Hub - Your Free Fitness Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-gray-50">
     <!-- Navigation -->
@@ -17,15 +16,18 @@
                     <i class="fas fa-dumbbell text-3xl text-blue-600 mr-3"></i>
                     <h1 class="text-2xl font-bold text-gray-800">GymFit Hub</h1>
                 </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-gray-600 hover:text-blue-600 transition">Home</a>
-                    <a href="#features" class="text-gray-600 hover:text-blue-600 transition">Features</a>
-                    <a href="#community" class="text-gray-600 hover:text-blue-600 transition">Community</a>
-                    <a href="#about" class="text-gray-600 hover:text-blue-600 transition">About</a>
+                <div class="hidden md:flex space-x-6">
+                    <a href="dashboard.html" class="text-gray-600 hover:text-blue-600 transition">Dashboard</a>
+                    <a href="workouts.html" class="text-gray-600 hover:text-blue-600 transition">Workouts</a>
+                    <a href="progress.html" class="text-gray-600 hover:text-blue-600 transition">Progress</a>
+                    <a href="community.html" class="text-gray-600 hover:text-blue-600 transition">Community</a>
+                    <a href="challenges.html" class="text-gray-600 hover:text-blue-600 transition">Challenges</a>
+                    <a href="profile.html" class="text-gray-600 hover:text-blue-600 transition">Profile</a>
+                    <a href="contact.html" class="text-gray-600 hover:text-blue-600 transition">Contact Us</a>
                 </div>
                 <div class="flex space-x-4">
-                    <button onclick="showLoginModal()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Login</button>
-                    <button onclick="showRegisterModal()" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">Sign Up</button>
+                    <a href="#loginModal" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Sign In</a>
+                    <a href="#registerModal" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">Sign Up</a>
                 </div>
             </div>
         </div>
@@ -43,10 +45,10 @@
                     and connect with a supportive community - all for free!
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button onclick="showRegisterModal()" class="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition">
+                    <button class="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition">
                         Get Started Free
                     </button>
-                    <button onclick="scrollToFeatures()" class="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-50 transition">
+                    <button  class="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-50 transition">
                         Learn More
                     </button>
                 </div>
@@ -79,23 +81,21 @@
     </section>
 
     <!-- Login Modal -->
-    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
         <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white rounded-lg p-8 max-w-md w-full">
+            <div class="bg-white rounded-lg p-8 max-w-md w-full relative">
+                <a href="#" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl">&times;</a>
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-2xl font-bold">Login</h2>
-                    <button onclick="hideLoginModal()" class="text-gray-500 hover:text-gray-700">
-                        <i class="fas fa-times text-xl"></i>
-                    </button>
                 </div>
-                <form id="loginForm" class="space-y-4">
+                <form class="space-y-4">
                     <div>
                         <label class="block text-gray-700 mb-2">Email</label>
-                        <input type="email" id="loginEmail" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        <input type="email" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
                     <div>
                         <label class="block text-gray-700 mb-2">Password</label>
-                        <input type="password" id="loginPassword" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        <input type="password" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
                     <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">
                         Login
@@ -103,38 +103,45 @@
                 </form>
                 <p class="text-center mt-4 text-gray-600">
                     Don't have an account? 
-                    <a href="#" onclick="switchToRegister()" class="text-blue-600 hover:underline">Sign up</a>
+                    <a href="#registerModal" class="text-blue-600 hover:underline">Sign up</a>
                 </p>
             </div>
         </div>
     </div>
 
+    <style>
+        #loginModal:target, #registerModal:target {
+            display: block !important;
+        }
+        #loginModal, #registerModal {
+            display: none;
+        }
+    </style>
+
     <!-- Register Modal -->
-    <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+    <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
         <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white rounded-lg p-8 max-w-md w-full">
+            <div class="bg-white rounded-lg p-8 max-w-md w-full relative">
+                <a href="#" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl">&times;</a>
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-2xl font-bold">Sign Up</h2>
-                    <button onclick="hideRegisterModal()" class="text-gray-500 hover:text-gray-700">
-                        <i class="fas fa-times text-xl"></i>
-                    </button>
                 </div>
-                <form id="registerForm" class="space-y-4">
+                <form class="space-y-4">
                     <div>
                         <label class="block text-gray-700 mb-2">Full Name</label>
-                        <input type="text" id="registerName" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        <input type="text" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
                     <div>
                         <label class="block text-gray-700 mb-2">Email</label>
-                        <input type="email" id="registerEmail" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        <input type="email" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
                     <div>
                         <label class="block text-gray-700 mb-2">Password</label>
-                        <input type="password" id="registerPassword" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        <input type="password" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
                     <div>
                         <label class="block text-gray-700 mb-2">Confirm Password</label>
-                        <input type="password" id="registerConfirmPassword" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        <input type="password" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
                     <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition">
                         Create Account
@@ -142,18 +149,12 @@
                 </form>
                 <p class="text-center mt-4 text-gray-600">
                     Already have an account? 
-                    <a href="#" onclick="switchToLogin()" class="text-blue-600 hover:underline">Login</a>
+                    <a href="#loginModal" class="text-blue-600 hover:underline">Login</a>
                 </p>
             </div>
         </div>
     </div>
 
-    <!-- Dashboard (Hidden by default) -->
-    <div id="dashboard" class="hidden">
-        <!-- Dashboard content will be loaded here -->
-    </div>
 
-    <script src="js/auth.js"></script>
-    <script src="js/main.js"></script>
 </body>
 </html> 
